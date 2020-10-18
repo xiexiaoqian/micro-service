@@ -1,0 +1,62 @@
+spring:
+  application:
+    name: user-center
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 39.97.253.19:8848
+#        namespace: 558260dc-2b0a-40f0-a100-1225f1dd9e4c
+  zipkin:
+    base-url: http://localhost:9411/
+    discovery-client-enabled: false
+  sleuth:
+    sampler:
+      # 抽样率，默认是 0.1（10%）
+      probability: 1.0
+  datasource:
+    url: jdbc:mysql://39.97.253.19:3306/user_center?useUnide=true&characterEncoding=UTF-8&useSSL=false&autoReconnect=true&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai
+    hikari:
+      username: root
+      password: xxqroot
+      driver-class-name: com.mysql.cj.jdbc.Driver
+#        metadata: # 配置 nacos 元数据
+#          instance: cc
+#          version: 1.0
+
+
+
+server:
+  port: 6001
+
+info:
+  app:
+    name: user-center
+    version: 1.0.0
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+    shutdown:
+      enabled: true
+
+
+rocketmq:
+  name-server: 39.97.253.19:9876
+  producer:
+    #必须制定group
+    group: test-group
+
+jwt:
+  secret: mmmmmmmmnnnnnnnnccccccccxxxxxxxx2
+  # 有效期，单位秒，默认2周
+  expire-time-in-second: 1209600
+
+logging:
+  level:
+    com.alibaba.nacos: error
+    org.springframework.cloud.sleuth: debug

@@ -1,0 +1,32 @@
+server:
+  port: 8002
+
+spring:
+  application:
+    name: course-center
+  profiles:
+    active: dev
+
+info:
+  app:
+    name: course-center
+
+eureka:
+  instance:
+    hostname:
+    prefer-ip-address: true
+
+  client:
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:7002/eureka/
+
+# Mybatis-Plus配置
+mybatis-plus:
+  mapper-locations: classpath:mapper/*.xml
+  type-enums-package: com.soft1851.mosoteach.api.entity
+  global-config:
+    db-config:
+      #主键类型:auto主键自增，input用户输入id，id_worker全局唯一的数字id，UUID全局唯一的UUID
+      id-type: auto
+      #开启驼峰转换
+      table-underline: true

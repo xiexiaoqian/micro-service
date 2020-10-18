@@ -1,0 +1,34 @@
+
+server:
+  port: 8001    # 当前 Eureka Client 服务的端口
+
+spring:
+  application:
+    name: user-center
+  profiles:
+    active: dev
+
+info:
+  app:
+    name: user-center    # 当前服务在actuator监控中的应用名称
+
+#服务注册
+eureka:
+  instance:
+    hostname: xxq.com    # 主机名
+    prefer-ip-address: true   # 是否将当前服务的IP注册到 Eureka Server
+  client:
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:7002/eureka/
+
+# Mybatis-Plus配置
+mybatis-plus:
+  mapper-locations: classpath:mapper/*.xml
+  type-enums-package: com.soft1851.mosoteach.user.center.entity
+  global-config:
+    db-config:
+      #主键类型:auto主键自增，input用户输入id，id_worker全局唯一的数字id，UUID全局唯一的UUID
+      id-type: auto
+      #开启驼峰转换
+      table-underline: true
+

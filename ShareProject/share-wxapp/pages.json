@@ -1,0 +1,77 @@
+{
+	"pages": [{
+			"path": "pages/tabbar/home/home",
+			"style": {
+				"navigationBarTitleText": "首页",
+				"enablePullDownRefresh": true
+			}
+		},
+		{
+			"path": "pages/tabbar/post/post",
+			"style": {
+				"navigationBarTitleText": "投稿"
+			}
+		},
+		{
+			"path": "pages/tabbar/profile/profile",
+			"style": {
+				"navigationBarTitleText": "我的"
+			}
+		},
+		{
+			"path": "pages/home/share-detail",
+			"style": {
+				"navigationBarTitleText": "分享详情"
+			}
+		},
+		{
+			"path": "pages/profile/my-exchange",
+			"style": {
+				"navigationBarTitleText": "我的兑换"
+			}
+		},
+		{
+			"path": "pages/profile/my-bonus",
+			"style": {
+				"navigationBarTitleText": "积分明细"
+			}
+		},
+		{
+			"path": "pages/profile/my-contribute",
+			"style": {
+				"navigationBarTitleText": "我的投稿"
+			}
+		}
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "white",
+		"navigationBarTitleText": "share-app",
+		"navigationBarBackgroundColor": "#387fff",
+		"backgroundColor": "#F8F8F8"
+	},
+	"tabBar": {
+		"borderStyle": "white",
+		"backgroundColor": "#f7f3f9",
+		"color": "#8F8F94",
+		"selectedColor": "#387fff",
+		"list": [{
+				"pagePath": "pages/tabbar/home/home",
+				"iconPath": "static/img/tabbar/home.png",
+				"selectedIconPath": "static/img/tabbar/homeactive.png",
+				"text": "首页"
+			},
+			{
+				"pagePath": "pages/tabbar/post/post",
+				"iconPath": "static/img/tabbar/post.png",
+				"selectedIconPath": "static/img/tabbar/postactive.png",
+				"text": "投稿"
+			},
+			{
+				"pagePath": "pages/tabbar/profile/profile",
+				"iconPath": "static/img/tabbar/me.png",
+				"selectedIconPath": "static/img/tabbar/meactive.png",
+				"text": "我的"
+			}
+		]
+	}
+}
