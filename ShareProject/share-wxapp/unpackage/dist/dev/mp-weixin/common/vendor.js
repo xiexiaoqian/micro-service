@@ -1935,7 +1935,7 @@ function normalizeComponent (
 
 /***/ }),
 
-/***/ 129:
+/***/ 121:
 /*!**************************************************************************************!*\
   !*** D:/Coding/micro-service/ShareProject/share-wxapp/components/uni-icons/icons.js ***!
   \**************************************************************************************/
@@ -8920,20 +8920,17 @@ internalMixin(Vue);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.request = request;exports.get = get; /**
-                                                                                                                         * 封装uniapp的request
-                                                                                                                         */
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.request = request; /**
+                                                                                                       * 封装uniapp的request
+                                                                                                       */
 function request(url, method, data) {
-  // 如果本地存储没有token对象，那么取出其token属性的值得类型为undefined
-  // console.log(typeof(uni.getStorageSync('token').token));
-  // 以下分本地有没有token，给后端传header，没有token就用'no-token'常量代替
   var token = '';
+  // console.log(typeof(uni.getStorageSync('token').token))
   if (typeof uni.getStorageSync('token').token == 'undefined') {
     token = 'no-token';
   } else {
     token = uni.getStorageSync('token').token;
   }
-  // console.log(token)
   return new Promise(function (resolve, reject) {
     uni.request({
       url: url,
@@ -8947,39 +8944,10 @@ function request(url, method, data) {
         resolve(res.data);
       },
       fail: function fail(err) {
-        uni.showToast({
-          title: '请求失败' });
-
-        reject(err);
-      } });
-
-  });
-}
-
-function get(url) {
-  var token = '';
-  // 如果本地存储没有token对象，那么取出其token属性的值得类型为undefined
-  // console.log(typeof(uni.getStorageSync('token').token));
-  // 以下分本地有没有token，给后端传header，没有token就用'no-token'常量代替
-  if (typeof uni.getStorageSync('token').token == 'undefined') {
-    token = 'no-token';
-  } else {
-    token = uni.getStorageSync('token').token;
-  }
-  // console.log(token)
-  return new Promise(function (resolve, reject) {
-    uni.request({
-      url: url,
-      method: 'GET',
-      header: {
-        'X-Token': token },
-
-      success: function success(res) {
-        resolve(res.data);
-      },
-      fail: function fail(err) {
-        uni.showToast({
-          title: '请求失败' });
+        uni.showModal({
+          title: '错误',
+          content: '网络请求异常',
+          showCancel: false });
 
         reject(err);
       } });
@@ -8998,40 +8966,49 @@ function get(url) {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.SIGN_URL = exports.USER_CONTRIBUTION_URL = exports.USER_BONUS_LOG_URL = exports.LOGIN_URL = exports.USER_URL = exports.NOTICE_URL = exports.MY_EXCHANGE_URL = exports.EXCHANGE_URL = exports.AUDIT_URL = exports.CONTRIBUTE_URL = exports.SHARE_DETAIL_URL = exports.SHARE_LIST_URL = exports.SHARE_URL = exports.BASE_API_URL = void 0; // ===========后端接口基础路径
-// export const BASE_API_URL = 'http://knowledge.utools.club/';
+Object.defineProperty(exports, "__esModule", { value: true });exports.AUDIT_URL = exports.NOT_YET_SHARE_URL = exports.SIGN_URL = exports.MY_CONTRIBUTION_URL = exports.MY_BONUS_LOG_URL = exports.MY_EXCHANGE_URL = exports.LOGIN_URL = exports.EXCHANGE_URL = exports.CONTRIBUTE_URL = exports.LATEST_NOTICE_URL = exports.SHARE_LIST_URL = exports.ADMIN_URL = exports.NOTICE_URL = exports.USER_URL = exports.SHARE_URL = exports.BASE_API_URL = void 0; // 后端接口一级基础路径
 var BASE_API_URL = 'https://shareapp.utools.club';
-// export const BASE_API_URL = 'http://39.98.143.134:8040';
+// export const BASE_API_URL = 'http://39.97.253.19:8040';
 
-// ===========ShareController相关接口基地址
-exports.BASE_API_URL = BASE_API_URL;var SHARE_URL = BASE_API_URL + '/shares';
+// 二级基地址
+exports.BASE_API_URL = BASE_API_URL;var SHARE_URL = BASE_API_URL + '/shares';exports.SHARE_URL = SHARE_URL;
+var USER_URL = BASE_API_URL + '/users';exports.USER_URL = USER_URL;
+var NOTICE_URL = BASE_API_URL + '/notices';exports.NOTICE_URL = NOTICE_URL;
+var ADMIN_URL = BASE_API_URL + '/admin';
 
+
+
+// =================== 首页功能 ===================
 // 分享列表
-exports.SHARE_URL = SHARE_URL;var SHARE_LIST_URL = SHARE_URL + '/query';
-// 分享详情
-exports.SHARE_LIST_URL = SHARE_LIST_URL;var SHARE_DETAIL_URL = SHARE_URL;
-// 投稿
-exports.SHARE_DETAIL_URL = SHARE_DETAIL_URL;var CONTRIBUTE_URL = SHARE_URL + '/contribute';
-// 审核
-exports.CONTRIBUTE_URL = CONTRIBUTE_URL;var AUDIT_URL = SHARE_URL + '/audit';
-// 兑换
-exports.AUDIT_URL = AUDIT_URL;var EXCHANGE_URL = SHARE_URL + '/exchange';
-// 我的兑换
-exports.EXCHANGE_URL = EXCHANGE_URL;var MY_EXCHANGE_URL = SHARE_URL + '/my/exchanges';
-
+exports.ADMIN_URL = ADMIN_URL;var SHARE_LIST_URL = SHARE_URL + '/query';
 // 最新公告
-exports.MY_EXCHANGE_URL = MY_EXCHANGE_URL;var NOTICE_URL = BASE_API_URL + '/notices/latest';
+exports.SHARE_LIST_URL = SHARE_LIST_URL;var LATEST_NOTICE_URL = NOTICE_URL + '/latest';
 
-// ===========UserController相关接口基地址
-exports.NOTICE_URL = NOTICE_URL;var USER_URL = BASE_API_URL + '/users';
-// 登录
-exports.USER_URL = USER_URL;var LOGIN_URL = USER_URL + '/login';
-// 积分明细
-exports.LOGIN_URL = LOGIN_URL;var USER_BONUS_LOG_URL = USER_URL + '/bonus-logs';
-// 我的投稿
-exports.USER_BONUS_LOG_URL = USER_BONUS_LOG_URL;var USER_CONTRIBUTION_URL = USER_URL + '/contributions';
-// 签到
-exports.USER_CONTRIBUTION_URL = USER_CONTRIBUTION_URL;var SIGN_URL = USER_URL + '/sign';exports.SIGN_URL = SIGN_URL;
+// =================== 投稿兑换相关功能 ===================
+//投稿
+exports.LATEST_NOTICE_URL = LATEST_NOTICE_URL;var CONTRIBUTE_URL = SHARE_URL + '/contribute';
+//兑换
+exports.CONTRIBUTE_URL = CONTRIBUTE_URL;var EXCHANGE_URL = SHARE_URL + '/exchange';
+
+
+
+//=================== 我的 ===================
+//登录
+exports.EXCHANGE_URL = EXCHANGE_URL;var LOGIN_URL = USER_URL + '/login';
+//我的兑换
+exports.LOGIN_URL = LOGIN_URL;var MY_EXCHANGE_URL = SHARE_URL + '/my/exchanges';
+//积分明细
+exports.MY_EXCHANGE_URL = MY_EXCHANGE_URL;var MY_BONUS_LOG_URL = USER_URL + '/my-bonus-log';
+//我的投稿
+exports.MY_BONUS_LOG_URL = MY_BONUS_LOG_URL;var MY_CONTRIBUTION_URL = SHARE_URL + '/my/contributions';
+//签到
+exports.MY_CONTRIBUTION_URL = MY_CONTRIBUTION_URL;var SIGN_URL = USER_URL + '/sign';
+
+//=================== 管理员功能 ===================
+//管理员查看待审核分享列表
+exports.SIGN_URL = SIGN_URL;var NOT_YET_SHARE_URL = ADMIN_URL + '/shares/list';
+//管理员审核某个分享
+exports.NOT_YET_SHARE_URL = NOT_YET_SHARE_URL;var AUDIT_URL = ADMIN_URL + '/shares/audit';exports.AUDIT_URL = AUDIT_URL;
 
 /***/ }),
 
@@ -9074,72 +9051,6 @@ module.exports = g;
 /***/ (function(module, exports) {
 
 
-
-/***/ }),
-
-/***/ 59:
-/*!**************************************************************************************!*\
-  !*** D:/Coding/micro-service/ShareProject/share-wxapp/components/uni-popup/popup.js ***!
-  \**************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _message = _interopRequireDefault(__webpack_require__(/*! ./message.js */ 60));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
-// 定义 type 类型:弹出类型：top/bottom/center
-var config = {
-  // 顶部弹出
-  top: 'top',
-  // 底部弹出
-  bottom: 'bottom',
-  // 居中弹出
-  center: 'center',
-  // 消息提示
-  message: 'top',
-  // 对话框
-  dialog: 'center',
-  // 分享
-  share: 'bottom' };var _default =
-
-
-{
-  data: function data() {
-    return {
-      config: config };
-
-  },
-  mixins: [_message.default] };exports.default = _default;
-
-/***/ }),
-
-/***/ 60:
-/*!****************************************************************************************!*\
-  !*** D:/Coding/micro-service/ShareProject/share-wxapp/components/uni-popup/message.js ***!
-  \****************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = {
-  created: function created() {
-    if (this.type === 'message') {
-      // 不显示遮罩
-      this.maskShow = false;
-      // 获取子组件对象
-      this.childrenMsg = null;
-    }
-  },
-  methods: {
-    customOpen: function customOpen() {
-      if (this.childrenMsg) {
-        this.childrenMsg.open();
-      }
-    },
-    customClose: function customClose() {
-      if (this.childrenMsg) {
-        this.childrenMsg.close();
-      }
-    } } };exports.default = _default;
 
 /***/ })
 

@@ -113,13 +113,27 @@ public class ShareController {
         return this.shareService.exchange(exchangeDTO);
     }
 
-    @GetMapping("/my/contributions")
+    @PostMapping("/my/contributions")
     @ApiOperation(value = "我的投稿", notes = "用于：我的-我的投稿")
     public List<Share> myContributions(@RequestBody MyDTO myDTO){
         return this.shareService.myContributions(myDTO);
     }
 
-    @GetMapping("/my/exchanges")
+//    @GetMapping("/my-contribute")
+//    @CheckLogin
+//    @ApiOperation(value = "我的投稿", notes = "我的投稿")
+//    public List<Share> myContribute(
+//            @RequestParam(required = false, defaultValue = "1") Integer pageNo,
+//            @RequestParam(required = false, defaultValue = "10") Integer pageSize,
+//            @RequestHeader(value = "X-Token", required = false) String token) {
+//        if (pageSize > 100) {
+//            pageSize = 100;
+//        }
+//        int userId = getUserIdFromToken(token);
+//        return this.shareService.myContributes(pageNo, pageSize, userId).getList();
+//    }
+
+    @PostMapping("/my/exchanges")
     @ApiOperation(value = "我的兑换", notes = "用于：我的-我的兑换")
     public List<Share> myExchange(@RequestBody MyDTO myDTO){
         return this.shareService.myExchange(myDTO);

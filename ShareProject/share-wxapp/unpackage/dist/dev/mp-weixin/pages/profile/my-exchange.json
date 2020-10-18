@@ -1,7 +1,6 @@
 {
   "navigationBarTitleText": "我的兑换",
   "usingComponents": {
-    "uni-list": "/components/uni-list/uni-list",
-    "uni-list-item": "/components/uni-list-item/uni-list-item"
+    "my-card": "/components/my-card/my-card"
   }
 }

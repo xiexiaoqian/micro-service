@@ -93,8 +93,8 @@
 					title: this.title,
 					author: this.author,
 					price: this.price,
-					cover: this.cover,
-					summary: 'https://cdn.nlark.com/yuque/0/2020/jpeg/2646190/1602903186123-f0da5f5f-5062-47ef-81ad-edbebadbb9e2.jpeg',
+					cover: 'https://cdn.nlark.com/yuque/0/2020/jpeg/2646190/1602903186123-f0da5f5f-5062-47ef-81ad-edbebadbb9e2.jpeg',
+					summary: this.summary,
 					downloadUrl: this.downloadUrl
 				});
 				setTimeout(() => {
@@ -164,8 +164,8 @@
 		width: 90%;
 		margin-top: 10px;
 		border-radius: 50px;
-		// background: linear-gradient(to right, #ff5722, #ff7043);
-		background: linear-gradient(to right, #aa00ff, #fd1d1d, #fcb045);
+		// background: linear-gradient(to right, #aa00ff, #fd1d1d, #fcb045);
+		background: linear-gradient(to right, #9796f0, #fbc7d4);
 		color: #fff;
 	}
 </style>

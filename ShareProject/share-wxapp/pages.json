@@ -20,6 +20,12 @@
 			}
 		},
 		{
+			"path":"pages/home/exchange",
+			"style":{
+				"navigationBarTitleText":"兑换资源"
+			}
+		},
+		{
 			"path": "pages/home/share-detail",
 			"style": {
 				"navigationBarTitleText": "分享详情"
@@ -41,12 +47,6 @@
 			"path": "pages/profile/my-contribute",
 			"style": {
 				"navigationBarTitleText": "我的投稿"
-			}
-		},
-		{
-			"path": "pages/profile/audit",
-			"style": {
-				"navigationBarTitleText": "审核"
 			}
 		}
 	],

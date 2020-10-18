@@ -3,11 +3,11 @@
     "pages/tabbar/home/home",
     "pages/tabbar/profile/profile",
     "pages/tabbar/post/post",
+    "pages/home/exchange",
     "pages/home/share-detail",
     "pages/profile/my-exchange",
     "pages/profile/my-bonus",
-    "pages/profile/my-contribute",
-    "pages/profile/audit"
+    "pages/profile/my-contribute"
   ],
   "subPackages": [],
   "window": {

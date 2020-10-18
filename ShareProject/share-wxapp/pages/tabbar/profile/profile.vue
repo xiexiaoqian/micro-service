@@ -29,7 +29,6 @@
 				<uni-list-item title="我的兑换" showArrow="true" is-link @click="toNextPage('exchange')"></uni-list-item>
 				<uni-list-item title="积分明细" showArrow="true" is-link @click="toNextPage('bonus')"></uni-list-item>
 				<uni-list-item title="我的投稿" showArrow="true" is-link @click="toNextPage('contribute')"></uni-list-item>
-				<uni-list-item thumb="https://uploader.shimo.im/f/K2qIZX9AUN7EZ6dT.png!thumbnail" title="我的投稿" showArrow="true" is-link @click="toNextPage('contribute')"></uni-list-item>
 				<uni-list-item title="审核投稿" showArrow="true" is-link @click="toNextPage('audit')" v-if="user.roles === 'admin'"></uni-list-item>
 				
 			</uni-list>
@@ -253,7 +252,8 @@
 					font-size: 10px;
 					color: #FFFFFF;
 					border-radius: 2px;
-					background: linear-gradient(to right, #ff8a65, #ff5722);
+					background-color: #6190E8;
+					// background: linear-gradient(to bottom, #9796f0, #fbc7d4);
 				}
 			}
 

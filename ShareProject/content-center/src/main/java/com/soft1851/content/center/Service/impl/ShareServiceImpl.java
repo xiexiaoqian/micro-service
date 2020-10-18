@@ -138,7 +138,7 @@ public class ShareServiceImpl implements ShareService {
                 .createTime(new Date())
                 .updateTime(new Date())
                 .showFlag(false)
-                .auditStatus("NOT_YET")
+                .auditStatus(AuditStatusEnum.NOT_YET.name())
                 .reason("未审核")
                 .build();
         return shareMapper.insert(share);

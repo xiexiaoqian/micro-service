@@ -1,1 +1,1 @@
-<view class="container"><view class="_h1">bonus</view></view>
+<view><uni-list vue-id="db4b086e-1" bind:__l="__l" vue-slots="{{['default']}}"><block wx:for="{{bonusLogs}}" wx:for-item="bonusLog" wx:for-index="index" wx:key="index"><uni-list-item vue-id="{{('db4b086e-2-'+index)+','+('db4b086e-1')}}" showExtraIcon="true" extraIcon="{{bonusLog.icon}}" title="{{bonusLog.createTime+'--'+bonusLog.title+' '+bonusLog.value}}" bind:__l="__l"></uni-list-item></block></uni-list></view>

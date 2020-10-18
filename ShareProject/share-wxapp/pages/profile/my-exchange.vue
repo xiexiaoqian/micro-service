@@ -1,16 +1,11 @@
 <template>
 	<view>
-		<!-- <view v-for="(share, index) in shares" :key="index"><my-card :share="share" :key="index" @click="gotoDetail(share.id)"></my-card></view> -->
-		<uni-list>
-			<uni-list-item :title="item.title" :note="item.summary" :thumb="item.cover" thumb-size="lg" :showBadge="item.price + '积分'"
-			 :rightText="'下载'" showArrow="false" v-for="(item, index) in shares" :key="index"
-			 class="item" v-if="item.showFlag" @click="toNextPage(item)" />
-		</uni-list>
+		<view v-for="(share, index) in shares" :key="index"><my-card :share="share" :key="index" @click="gotoDetail(share.id)"></my-card></view>
 	</view>
 </template>
 
 <script>
-// import myCard from '@/components/my-card/my-card.vue';
+import myCard from '@/components/my-card/my-card.vue';
 import { request } from '@/utils/request';
 import { MY_EXCHANGE_URL } from '@/utils/api';
 export default {
@@ -54,10 +49,15 @@ export default {
 			uni.showLoading({
 				title: '加载中'
 			});
-			let res = await request(MY_EXCHANGE_URL, 'GET', {
-				pageNo: this.pageNo,
-				pageSize: this.pageSize
+			// let res = await request(MY_EXCHANGE_URL, 'GET', {
+			// 	pageNo: this.pageNo,
+			// 	pageSize: this.pageSize
+			// });
+			
+			let res = await request(MY_EXCHANGE_URL, 'POST', {
+				userId: uni.getStorageSync('user').id
 			});
+			
 			setTimeout(() => {
 				uni.hideLoading();
 			}, 100);
@@ -80,8 +80,4 @@ export default {
 };
 </script>
 
-<style lang="scss">
-	.item {
-		font-size: 20px;
-	}
-</style>
+<style lang="scss"></style>

@@ -94,8 +94,6 @@ uni-list-item {
   color: #FFFFFF;
   -webkit-border-radius: 2px;
           border-radius: 2px;
-  background: -webkit-gradient(linear, left top, right top, from(#ff8a65), to(#ff5722));
-  background: -webkit-linear-gradient(left, #ff8a65, #ff5722);
-  background: linear-gradient(to right, #ff8a65, #ff5722);
+  background-color: #6190E8;
 }
 

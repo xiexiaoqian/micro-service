@@ -79,5 +79,6 @@ public interface ShareService {
      */
     List<Share> myExchange(MyDTO myDTO);
 
+
     String getHello();
 }
