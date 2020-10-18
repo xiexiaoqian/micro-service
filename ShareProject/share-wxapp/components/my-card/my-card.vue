@@ -1,5 +1,28 @@
 <template>
-	<view v-if="share.showFlag" class="my-card" @click="onClick">
+	<!-- 我的投稿：显示未审核投稿 -->
+	<view v-if="contribute" class="my-card" @click="onClick">
+		<view class="thumb">
+			<image :src="share.cover" class="img" mode="aspectFill" />
+			<text class="tag origin" v-if="share.isOriginal">原创</text>
+			<text v-else class="tag reprint">转载</text>
+		</view>
+		<view class="detail">
+			<view class="mid">
+				<view class="title">{{ share.title}}</view>
+				<view class="summary">{{ share.summary.length > 30 ? share.summary.substring(0, 30) : share.summary }}</view>
+			</view>
+			<view v-if="share.price" class="right">
+				<view>{{ share.price }}积分</view>
+				<view class="right-a" v-if="share.downloadUrl">下载</view>
+				<view class="right-b" v-else>兑换</view>
+			</view>
+			<view class="arrow">
+				<image src="http://ww1.sinaimg.cn/large/006yro14gy1gjttkcja1tj301c01c0ea.jpg" class="img" mode="aspectFill" />
+			</view>
+		</view>
+	</view>
+	<!-- 首页资源列表，不显示未审核资源 -->
+	<view v-else-if="share.showFlag" class="my-card" @click="onClick">
 		<view class="thumb">
 			<image :src="share.cover" class="img" mode="aspectFill" />
 			<text class="tag origin" v-if="share.isOriginal">原创</text>
@@ -24,7 +47,7 @@
 <script>
 export default {
 	name: 'MyCard',
-	props: ['share'],
+	props: ['share','contribute'],
 	// computed: {
 	// 	summary() {
 	// 		let summary = this.share.summary;

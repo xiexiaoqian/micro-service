@@ -12,7 +12,7 @@
 			></uni-list-item>
 		</uni-list> -->
 		
-		<view v-for="(share, index) in shares" :key="index"><my-card :share="share" :key="index" @click="gotoDetail(share.id)"></my-card></view>
+		<view v-for="(share, index) in shares" :key="index"><my-card :contribute="true" :share="share" :key="index" @click="gotoDetail(share.id, 'myContribute')"></my-card></view>
 	</view>
 </template>
 
@@ -115,6 +115,7 @@ export default {
 				});
 			} else {
 				uni.showToast({
+					icon: 'none',
 					title: '资源尚未通过审核',
 					duration: 1500
 				});

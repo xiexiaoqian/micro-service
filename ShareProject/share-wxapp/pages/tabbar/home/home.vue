@@ -6,7 +6,7 @@
 				<view class="notice">{{ notice.content }}</view>
 				<uni-search-bar></uni-search-bar>
 				<view v-for="(share, index) in shares" :key="index">
-					<my-card :share="share" :key="index" 
+					<my-card :contribute="false" :share="share" :key="index" 
 					@click="gotoDetail(share.downloadUrl, share.id)"></my-card>
 				</view>
 			</view>
@@ -101,6 +101,7 @@
 					pageNo: this.pageNo,
 					pageSize: this.pageSize
 				});
+				console.log(res)
 				//请求结束延时隐藏加载动画
 				setTimeout(() => {
 					uni.hideLoading();

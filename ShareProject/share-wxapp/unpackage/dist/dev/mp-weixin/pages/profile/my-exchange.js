@@ -296,14 +296,19 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   var g0 =
-    _vm.share.showFlag && _vm.share.summary.length > 30
+    _vm.contribute && _vm.share.summary.length > 30
+      ? _vm.share.summary.substring(0, 30)
+      : null
+  var g1 =
+    !_vm.contribute && _vm.share.showFlag && _vm.share.summary.length > 30
       ? _vm.share.summary.substring(0, 30)
       : null
   _vm.$mp.data = Object.assign(
     {},
     {
       $root: {
-        g0: g0
+        g0: g0,
+        g1: g1
       }
     }
   )
@@ -363,10 +368,33 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var _default =
 {
   name: 'MyCard',
-  props: ['share'],
+  props: ['share', 'contribute'],
   // computed: {
   // 	summary() {
   // 		let summary = this.share.summary;

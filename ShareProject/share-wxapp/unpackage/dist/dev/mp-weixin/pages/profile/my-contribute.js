@@ -249,6 +249,7 @@ var _api = __webpack_require__(/*! @/utils/api */ 21);function _interopRequireDe
 
       } else {
         uni.showToast({
+          icon: 'none',
           title: '资源尚未通过审核',
           duration: 1500 });
 
