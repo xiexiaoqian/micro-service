@@ -20,6 +20,9 @@ import lombok.NoArgsConstructor;
 @ApiModel("分享信息")
 public class ShareRequestDTO {
 
+    @ApiModelProperty(name = "userId", value = "投稿人id")
+    private Integer userId;
+
     @ApiModelProperty(name = "author", value = "作者")
     private String author;
 
@@ -31,6 +34,9 @@ public class ShareRequestDTO {
 
     @ApiModelProperty(name = "price", value = "价格")
     private Integer price;
+
+    @ApiModelProperty(name = "cover", value = "封面")
+    private String cover;
 
     @ApiModelProperty(name = "summary", value = "简介")
     private String summary;

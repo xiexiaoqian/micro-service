@@ -1935,7 +1935,7 @@ function normalizeComponent (
 
 /***/ }),
 
-/***/ 102:
+/***/ 129:
 /*!**************************************************************************************!*\
   !*** D:/Coding/micro-service/ShareProject/share-wxapp/components/uni-icons/icons.js ***!
   \**************************************************************************************/
@@ -8998,12 +8998,12 @@ function get(url) {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.SIGN_URL = exports.USER_CONTRIBUTION_URL = exports.USER_BONUS_LOG_URL = exports.LOGIN_URL = exports.USER_URL = exports.NOTICE_URL = exports.EXCHANGE_URL = exports.AUDIT_URL = exports.CONTRIBUTE_URL = exports.SHARE_DETAIL_URL = exports.SHARE_LIST_URL = exports.SHARE_URL = exports.BASE_API_URL = void 0; // 后端接口基础路径
+Object.defineProperty(exports, "__esModule", { value: true });exports.SIGN_URL = exports.USER_CONTRIBUTION_URL = exports.USER_BONUS_LOG_URL = exports.LOGIN_URL = exports.USER_URL = exports.NOTICE_URL = exports.MY_EXCHANGE_URL = exports.EXCHANGE_URL = exports.AUDIT_URL = exports.CONTRIBUTE_URL = exports.SHARE_DETAIL_URL = exports.SHARE_LIST_URL = exports.SHARE_URL = exports.BASE_API_URL = void 0; // ===========后端接口基础路径
 // export const BASE_API_URL = 'http://knowledge.utools.club/';
 var BASE_API_URL = 'https://shareapp.utools.club';
 // export const BASE_API_URL = 'http://39.98.143.134:8040';
 
-// ShareController相关接口基地址
+// ===========ShareController相关接口基地址
 exports.BASE_API_URL = BASE_API_URL;var SHARE_URL = BASE_API_URL + '/shares';
 
 // 分享列表
@@ -9016,11 +9016,13 @@ exports.SHARE_DETAIL_URL = SHARE_DETAIL_URL;var CONTRIBUTE_URL = SHARE_URL + '/c
 exports.CONTRIBUTE_URL = CONTRIBUTE_URL;var AUDIT_URL = SHARE_URL + '/audit';
 // 兑换
 exports.AUDIT_URL = AUDIT_URL;var EXCHANGE_URL = SHARE_URL + '/exchange';
+// 我的兑换
+exports.EXCHANGE_URL = EXCHANGE_URL;var MY_EXCHANGE_URL = SHARE_URL + '/my/exchanges';
 
 // 最新公告
-exports.EXCHANGE_URL = EXCHANGE_URL;var NOTICE_URL = BASE_API_URL + '/notices/latest';
+exports.MY_EXCHANGE_URL = MY_EXCHANGE_URL;var NOTICE_URL = BASE_API_URL + '/notices/latest';
 
-// UserController相关接口基地址
+// ===========UserController相关接口基地址
 exports.NOTICE_URL = NOTICE_URL;var USER_URL = BASE_API_URL + '/users';
 // 登录
 exports.USER_URL = USER_URL;var LOGIN_URL = USER_URL + '/login';
@@ -9075,7 +9077,7 @@ module.exports = g;
 
 /***/ }),
 
-/***/ 86:
+/***/ 59:
 /*!**************************************************************************************!*\
   !*** D:/Coding/micro-service/ShareProject/share-wxapp/components/uni-popup/popup.js ***!
   \**************************************************************************************/
@@ -9083,7 +9085,7 @@ module.exports = g;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _message = _interopRequireDefault(__webpack_require__(/*! ./message.js */ 87));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _message = _interopRequireDefault(__webpack_require__(/*! ./message.js */ 60));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 // 定义 type 类型:弹出类型：top/bottom/center
 var config = {
   // 顶部弹出
@@ -9110,7 +9112,7 @@ var config = {
 
 /***/ }),
 
-/***/ 87:
+/***/ 60:
 /*!****************************************************************************************!*\
   !*** D:/Coding/micro-service/ShareProject/share-wxapp/components/uni-popup/message.js ***!
   \****************************************************************************************/

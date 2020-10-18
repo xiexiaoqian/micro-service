@@ -37,23 +37,23 @@ class ShareServiceImplTest {
 
     @Test
     void insertShare() {
-        Share share = shareService.insertShare(new ShareRequestDTO("张张", "urlnew",
-                true, 23, "保姆级教学篇1", "Meaven报错怎么办？"));
+        int share = shareService.contribute(new ShareRequestDTO(9,"张张", "urlnew",
+                true, 23,"http", "保姆级教学篇1", "Meaven报错怎么办？"));
         System.out.println(share);
 
     }
 
     @Test
     void updateShareById() {
-        ShareRequestDTO shareRequestDTO = new ShareRequestDTO("巴旦木", "urlnew",
-                true, 23, "世间美好", "与你环环相扣");
+        ShareRequestDTO shareRequestDTO = new ShareRequestDTO(1,"巴旦木", "urlnew",
+                true, 23,"http", "世间美好", "与你环环相扣");
         Share share = shareService.updateShareById(shareRequestDTO, 1);
         System.out.println(share);
     }
 
     @Test
     void auditById() {
-        System.out.println(shareService.auditById(7, new AuditDTO(AuditStatusEnum.REJECT, "不通过")));
+        System.out.println(shareService.auditById(7, new AuditDTO(AuditStatusEnum.REJECT, "不通过",false)));
     }
 
 

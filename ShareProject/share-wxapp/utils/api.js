@@ -1,9 +1,9 @@
-// 后端接口基础路径
+// ===========后端接口基础路径
 // export const BASE_API_URL = 'http://knowledge.utools.club/';
 export const BASE_API_URL = 'https://shareapp.utools.club';
 // export const BASE_API_URL = 'http://39.98.143.134:8040';
 
-// ShareController相关接口基地址
+// ===========ShareController相关接口基地址
 export const SHARE_URL = BASE_API_URL + '/shares';
 
 // 分享列表
@@ -16,11 +16,13 @@ export const CONTRIBUTE_URL = SHARE_URL + '/contribute';
 export const AUDIT_URL = SHARE_URL + '/audit';
 // 兑换
 export const EXCHANGE_URL = SHARE_URL + '/exchange';
+// 我的兑换
+export const MY_EXCHANGE_URL = SHARE_URL + '/my/exchanges';
 
 // 最新公告
 export const NOTICE_URL = BASE_API_URL + '/notices/latest';
 
-// UserController相关接口基地址
+// ===========UserController相关接口基地址
 export const USER_URL = BASE_API_URL + '/users';
 // 登录
 export const LOGIN_URL = USER_URL + '/login';

@@ -12,7 +12,7 @@ import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * @Author: maohe
@@ -45,13 +45,13 @@ public class Share {
     @Column(name = "create_time")
     @ApiModelProperty(name = "createTime", value = "创建时间")
     @JsonFormat(locale = "zh", timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime createTime;
+    private Date createTime;
 
     @Column(name = "update_time")
     @ApiModelProperty(name = "updateTime", value = "修改时间")
 //    东八区
     @JsonFormat(locale = "zh", timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime updateTime;
+    private Date updateTime;
 
     @Column(name = "is_original")
     @ApiModelProperty(name = "isOriginal", value = "是否原创 0：否 1：是")
@@ -83,7 +83,7 @@ public class Share {
 
     @Column(name = "show_flag")
     @ApiModelProperty(name = "showFlag", value = "是否显示 0：否 1：是")
-    private String showFlag;
+    private Boolean showFlag;
 
     @Column(name = "audit_status")
     @ApiModelProperty(name = "auditStatus", value = "审核状态 NOT_YET: 待审核 PASSED:审核通过 REJECTED:审核不通过")

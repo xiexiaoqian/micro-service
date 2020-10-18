@@ -1,15 +1,20 @@
 <template>
 	<view class="container">
 		<view>
-			<uni-segmented-control :current="current" :values="menus" @clickItem="onClickItem" style-type="text" active-color="#387fff"></uni-segmented-control>
+			<uni-segmented-control :current="current" :values="menus" @clickItem="onClickItem" style-type="text" active-color="#4a148c"></uni-segmented-control>
 			<view class="content">
 				<view v-if="current === 0">
-					<p class="notice">{{ notice.content }}</p>
+					<view class="notice-line">
+						<view class="img">
+							<image src="" mode="aspectFit"></image>
+						</view>
+						<p class="notice">最新公告：{{ notice.content }}</p>
+					</view>
 					<uni-search-bar @confirm="handleSearch"></uni-search-bar>
 					<uni-list>
 						<uni-list-item :title="item.title" :note="item.summary" :thumb="item.cover" thumb-size="lg" :showBadge="item.price + '积分'"
 						 :rightText="item.downloadUrl === null ? '兑换' : '下载'" showArrow="false" v-for="(item, index) in shares" :key="index"
-						 class="item" @click="toNextPage(item)" />
+						 class="item" v-if="item.showFlag" @click="toNextPage(item)" />
 					</uni-list>
 				</view>
 				<view v-if="current === 1">
@@ -44,7 +49,7 @@
 				more: true,
 				current: 0,
 				pageNo: 1,
-				pageSize: 6,
+				pageSize: 7,
 				menus: ['发现', '使用说明'],
 				shares: [],
 				notice: {}
@@ -156,6 +161,6 @@
 	.notice {
 		margin-top: 10px;
 		font-size: 16px;
-		color: #387fff;
+		color: #4a148c;
 	}
 </style>

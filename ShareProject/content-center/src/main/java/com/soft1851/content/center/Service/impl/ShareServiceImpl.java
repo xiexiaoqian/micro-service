@@ -10,9 +10,11 @@ import com.soft1851.content.center.dao.ShareMapper;
 import com.soft1851.content.center.domain.dto.*;
 import com.soft1851.content.center.domain.entity.MidUserShare;
 import com.soft1851.content.center.domain.entity.Share;
+import com.soft1851.content.center.domain.enums.AuditStatusEnum;
 import com.soft1851.content.center.feignclient.UserCenterFeignClient;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.rocketmq.spring.core.RocketMQTemplate;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,7 +24,9 @@ import tk.mybatis.mapper.util.StringUtil;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 
@@ -39,6 +43,7 @@ public class ShareServiceImpl implements ShareService {
     private final ShareMapper shareMapper;
     private final UserCenterFeignClient userCenterFeignClient;
     private final MidUserShareMapper midUserShareMapper;
+    private final RocketMQTemplate rocketMQTemplate;
 
 
     /**
@@ -80,6 +85,7 @@ public class ShareServiceImpl implements ShareService {
         // 构造查询实例
         Example example = new Example(Share.class);
         Example.Criteria criteria = example.createCriteria();
+        example.setOrderByClause("update_time DESC");
         // 如标题关键字不空，则加上模糊查询条件，否则结果即所有数据
         if (StringUtil.isNotEmpty(title)) {
             criteria.andLike("title", "%" + title + "%");
@@ -118,19 +124,24 @@ public class ShareServiceImpl implements ShareService {
 
 
     @Override
-    public Share insertShare(ShareRequestDTO shareRequestDTO) {
-        Share share = new Share();
-        BeanUtils.copyProperties(shareRequestDTO, share);
-        share.setUserId(1);
-        share.setBuyCount(5);
-        share.setCover("https://public-cdn-oss.mosoteach.cn/mssvc/cover/2020/09/7f41b776db0ef26d6bb4d92c61435bcc.jpg?x-oss-process=style/s200x200");
-        share.setShowFlag("1");
-        share.setAuditStatus("PASSED");
-        share.setReason("通过");
-        share.setCreateTime(LocalDateTime.now());
-        share.setUpdateTime(LocalDateTime.now());
-        shareMapper.insert(share);
-        return share;
+    public int contribute(ShareRequestDTO shareRequestDTO) {
+        Share share = Share.builder()
+                .isOriginal(shareRequestDTO.getIsOriginal())
+                .author(shareRequestDTO.getAuthor())
+                .price(shareRequestDTO.getPrice())
+                .downloadUrl(shareRequestDTO.getDownloadUrl())
+                .summary(shareRequestDTO.getSummary())
+                .buyCount(0)
+                .title(shareRequestDTO.getTitle())
+                .userId(shareRequestDTO.getUserId())
+                .cover(shareRequestDTO.getCover())
+                .createTime(new Date())
+                .updateTime(new Date())
+                .showFlag(false)
+                .auditStatus("NOT_YET")
+                .reason("未审核")
+                .build();
+        return shareMapper.insert(share);
     }
 
     @Override
@@ -142,12 +153,55 @@ public class ShareServiceImpl implements ShareService {
     }
 
 
+//    @Override
+//    public Share auditById(Integer id, AuditDTO auditDTO) {
+//        Share share = shareMapper.selectByPrimaryKey(id);
+//        BeanUtils.copyProperties(auditDTO, share);
+//        share.setAuditStatus(auditDTO.getAuditStatusEnum().toString());
+//        shareMapper.updateByPrimaryKeySelective(share);
+//        return share;
+//    }
+
+    /**
+     * 审核
+     *
+     * @param id
+     * @param  id,  auditDTO
+     * @return share
+     */
     @Override
     public Share auditById(Integer id, AuditDTO auditDTO) {
-        Share share = shareMapper.selectByPrimaryKey(id);
-        BeanUtils.copyProperties(auditDTO, share);
+        // 1. 查询share是否存在，不存在或者当前的audit_status != NOT_YET，那么抛异常
+        Share share = this.shareMapper.selectByPrimaryKey(id);
+        if (share == null) {
+            throw new IllegalArgumentException("参数非法！该分享不存在！");
+        }
+        if (!Objects.equals(AuditStatusEnum.NOT_YET.name(), share.getAuditStatus())) {
+            throw new IllegalArgumentException("参数非法！该分享已审核通过或审核不通过！");
+        }
+        //2.审核资源，将状态改为PASS或REJECT，更新原因和是否发布显示
         share.setAuditStatus(auditDTO.getAuditStatusEnum().toString());
-        shareMapper.updateByPrimaryKeySelective(share);
+        share.setReason(auditDTO.getReason());
+        share.setShowFlag(auditDTO.getShowFlag());
+        this.shareMapper.updateByPrimaryKey(share);
+
+        //3. 向mid_user插入一条数据，分享的作者通过审核后，默认拥有了下载权限
+        this.midUserShareMapper.insert(
+                MidUserShare.builder()
+                        .userId(share.getUserId())
+                        .shareId(id)
+                        .build()
+        );
+
+        // 4. 如果是PASS，那么发送消息给rocketmq，让用户中心去消费，并为发布人添加积分
+        if (AuditStatusEnum.PASS.equals(auditDTO.getAuditStatusEnum())) {
+            this.rocketMQTemplate.convertAndSend(
+                    "add-bonus",
+                    UserAddBonusMsgDTO.builder()
+                            .userId(share.getUserId())
+                            .bonus(50)
+                            .build());
+        }
         return share;
     }
 

@@ -19,12 +19,21 @@
 						<text>当前积分：{{ user.bonus }}</text>
 					</view>
 				</view>
-				<view><button class="sign" @click="sign">签到</button></view>
+				<view class="btnbar">
+					<view class="btn-a" @click="sign">签到</view>
+					<view class="btn-a" @click="logout">退出</view>
+				</view>
 			</view>
 
-			<p class="item" @click="toNextPage('exchange')">我的兑换</p>
-			<p class="item" @click="toNextPage('bonus')">积分明细</p>
-			<p class="item" @click="toNextPage('contribute')">我的投稿</p>
+			<uni-list>
+				<uni-list-item title="我的兑换" showArrow="true" is-link @click="toNextPage('exchange')"></uni-list-item>
+				<uni-list-item title="积分明细" showArrow="true" is-link @click="toNextPage('bonus')"></uni-list-item>
+				<uni-list-item title="我的投稿" showArrow="true" is-link @click="toNextPage('contribute')"></uni-list-item>
+				<uni-list-item thumb="https://uploader.shimo.im/f/K2qIZX9AUN7EZ6dT.png!thumbnail" title="我的投稿" showArrow="true" is-link @click="toNextPage('contribute')"></uni-list-item>
+				<uni-list-item title="审核投稿" showArrow="true" is-link @click="toNextPage('audit')" v-if="user.roles === 'admin'"></uni-list-item>
+				
+			</uni-list>
+
 		</view>
 	</view>
 </template>
@@ -36,7 +45,8 @@
 	} from '@/utils/request';
 	import {
 		LOGIN_URL,
-		USER_URL
+		USER_URL,
+		SIGN_URL,
 	} from '@/utils/api';
 	export default {
 		data() {
@@ -55,23 +65,30 @@
 			}
 		},
 		methods: {
-
+			// 跳转页面
 			toNextPage(v) {
-				if (v == 'exchange') {
+				switch(v){
+					case 'exchange':
 					uni.navigateTo({
 						url: '../../profile/my-exchange',
 					})
-				} else if (v == 'bonus') {
+					case 'bonus':
 					uni.navigateTo({
 						url: '../../profile/my-bonus',
 					})
-				} else if (v == 'contribute') {
+					case 'contribute':
 					uni.navigateTo({
 						url: '../../profile/my-contribute',
 					})
+					case 'audit':
+					uni.navigateTo({
+						url: '../../profile/audit',
+					})
+					
 				}
-
+				
 			},
+			// 判断用户是否授权微信登录
 			bindGetUserInfo(e) {
 				let platform = uni.getSystemInfoSync().platform;
 				//此处e.mp事件适用于mini program小程序
@@ -85,6 +102,7 @@
 					});
 				}
 			},
+			// 走wx登录接口，并构建loginDTO，向后端发送登录请求
 			wxLogin(e) {
 				let self = this;
 				let userInfo = e.mp.detail.userInfo;
@@ -127,6 +145,7 @@
 					}
 				});
 			},
+			// 发送登录请求
 			userLogin(loginDTO) {
 				console.log(loginDTO);
 				request(LOGIN_URL, 'POST', loginDTO).then(res => {
@@ -141,8 +160,32 @@
 					uni.setStorageSync('token', res.data.token);
 				});
 			},
-			sign() {
-				console.log(uni.getStorageSync('user'));
+			// 签到
+			async sign() {
+				let res = await request(SIGN_URL, 'POST', {
+					"userId": this.user.id
+				})
+				console.log(res.data)
+				let code = res.data.code
+				if (code == "200") {
+					uni.showToast({
+						icon: 'none',
+						title: '签到成功！',
+						duration: 2000
+					});
+				} else if (code == "201") {
+					uni.showToast({
+						icon: 'none',
+						title: '今天签过啦~',
+						duration: 2000
+					});
+				} else {
+					uni.showToast({
+						icon: 'none',
+						title: '未知错误(⋟﹏⋞)',
+						duration: 2000
+					});
+				}
 			},
 			logout() {
 				this.user = null;
@@ -153,12 +196,8 @@
 </script>
 
 <style lang="scss">
-	button {
-		// background-color: #e5f7f7;
-		// color: #32c3c3;
-		outline: none;
-		border: none;
-		box-shadow: none;
+	uni-list-item {
+		margin-left: -250px;
 	}
 
 	.container {
@@ -203,27 +242,22 @@
 				margin-bottom: 5px;
 			}
 
-			.sign {
-				width: 60px;
-				height: 25px;
-				background-color: #e5f2ff;
-				color: #76839b;
-				margin: 2px;
-				font-size: 10px;
-				// outline: none;
-				// border: none;
-				// box-shadow: none;
-				outline: 0 none !important;
-				blr: expression(this.onFocus=this.blur());
-			}
-		}
-	}
+			.btnbar {
+				display: flex;
 
-	.item {
-		text-align: left;
-		padding-left: 30px;
-		line-height: 50px;
-		border-bottom: 1px dashed #ddd;
-		color: #76839b;
+				.btn-a {
+					width: 45px;
+					height: 15px;
+					padding: 5px;
+					margin: 2px 15px 2px 5px;
+					font-size: 10px;
+					color: #FFFFFF;
+					border-radius: 2px;
+					background: linear-gradient(to right, #ff8a65, #ff5722);
+				}
+			}
+
+
+		}
 	}
 </style>

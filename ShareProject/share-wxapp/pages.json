@@ -1,5 +1,6 @@
 {
-	"pages": [{
+	"pages": [
+		{
 			"path": "pages/tabbar/home/home",
 			"style": {
 				"navigationBarTitleText": "首页",
@@ -7,15 +8,15 @@
 			}
 		},
 		{
-			"path": "pages/tabbar/post/post",
-			"style": {
-				"navigationBarTitleText": "投稿"
-			}
-		},
-		{
 			"path": "pages/tabbar/profile/profile",
 			"style": {
 				"navigationBarTitleText": "我的"
+			}
+		},
+		{
+			"path": "pages/tabbar/post/post",
+			"style": {
+				"navigationBarTitleText": "投稿"
 			}
 		},
 		{
@@ -41,19 +42,25 @@
 			"style": {
 				"navigationBarTitleText": "我的投稿"
 			}
+		},
+		{
+			"path": "pages/profile/audit",
+			"style": {
+				"navigationBarTitleText": "审核"
+			}
 		}
 	],
 	"globalStyle": {
 		"navigationBarTextStyle": "white",
 		"navigationBarTitleText": "share-app",
-		"navigationBarBackgroundColor": "#387fff",
+		"navigationBarBackgroundColor": "#5c6bc0",
 		"backgroundColor": "#F8F8F8"
 	},
 	"tabBar": {
 		"borderStyle": "white",
 		"backgroundColor": "#f7f3f9",
 		"color": "#8F8F94",
-		"selectedColor": "#387fff",
+		"selectedColor": "#5c6bc0",
 		"list": [{
 				"pagePath": "pages/tabbar/home/home",
 				"iconPath": "static/img/tabbar/home.png",

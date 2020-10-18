@@ -1,25 +1,26 @@
 {
   "pages": [
     "pages/tabbar/home/home",
-    "pages/tabbar/post/post",
     "pages/tabbar/profile/profile",
+    "pages/tabbar/post/post",
     "pages/home/share-detail",
     "pages/profile/my-exchange",
     "pages/profile/my-bonus",
-    "pages/profile/my-contribute"
+    "pages/profile/my-contribute",
+    "pages/profile/audit"
   ],
   "subPackages": [],
   "window": {
     "navigationBarTextStyle": "white",
     "navigationBarTitleText": "share-app",
-    "navigationBarBackgroundColor": "#387fff",
+    "navigationBarBackgroundColor": "#5c6bc0",
     "backgroundColor": "#F8F8F8"
   },
   "tabBar": {
     "borderStyle": "white",
     "backgroundColor": "#f7f3f9",
     "color": "#8F8F94",
-    "selectedColor": "#387fff",
+    "selectedColor": "#5c6bc0",
     "list": [
       {
         "pagePath": "pages/tabbar/home/home",

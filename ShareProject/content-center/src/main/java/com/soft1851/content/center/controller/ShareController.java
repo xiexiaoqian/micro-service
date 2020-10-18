@@ -12,7 +12,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang.StringUtils;
 import org.apache.rocketmq.spring.core.RocketMQTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -66,9 +65,13 @@ public class ShareController {
     }
 
     @PostMapping("/contribute")
+    @CheckLogin
     @ApiOperation(value = "投稿", notes = "投稿")
-    public Share contribute(@RequestBody ShareRequestDTO shareRequestDTO) {
-        return shareService.insertShare(shareRequestDTO);
+    public int contributeShare(@RequestBody ShareRequestDTO shareRequestDTO, @RequestHeader(value = "X-Token", required = false) String token) {
+        log.info(shareRequestDTO + ">>>>>>>>>>>>");
+        int userId = getUserIdFromToken(token);
+        shareRequestDTO.setUserId(userId);
+        return shareService.contribute(shareRequestDTO);
     }
 
 
@@ -123,5 +126,23 @@ public class ShareController {
     }
 
 
-
+    /**
+     * 封装一个从token中提取userId的方法
+     *
+     * @param token
+     * @return userId
+     */
+    private int getUserIdFromToken(String token) {
+        log.info(">>>>>>>>>>>token" + token);
+        int userId = 0;
+        String noToken = "no-token";
+        if (!noToken.equals(token)) {
+            Claims claims = this.jwtOperator.getClaimsFromToken(token);
+            log.info(claims.toString());
+            userId = (Integer) claims.get("id");
+        } else {
+            log.info("没有token");
+        }
+        return userId;
+    }
 }

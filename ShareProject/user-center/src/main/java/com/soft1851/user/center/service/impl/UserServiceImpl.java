@@ -141,7 +141,7 @@ public class UserServiceImpl implements UserService {
                     this.userMapper.updateByPrimaryKeySelective(user);
                     return new ResponseDTO(true, "200", "签到成功", user.getWxNickname() + "用户签到成功", 1l);
                 }else if (DateUtil.checkAllotSigin(date) == 1){
-                    return new ResponseDTO(true, "201", "签到失败", user.getWxNickname() + "今天已经签过啦", 1l);
+                    return new ResponseDTO(true, "201", "签到失败", user.getWxNickname() + ",今天已经签过啦", 1l);
 
                 }else if (DateUtil.checkAllotSigin(date) == 2){
                     return new ResponseDTO(true, "202", "签到失败", user.getWxNickname() + "服务器生病了", 1l);

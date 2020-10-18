@@ -14,10 +14,12 @@
 
 
 /* 解决头条小程序组件内引入字体不生效的问题 */
-
-
-
-
-
-
+button{
+	outline: none;
+	border: none;
+}
+image {
+	width: 100%;
+	height: 100%;
+}
 

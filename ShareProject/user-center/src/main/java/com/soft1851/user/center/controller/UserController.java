@@ -98,7 +98,7 @@ public class UserController {
         return userService.bonusLog(userSignInDTO);
     }
 
-    @GetMapping(value = "/sign")
+    @PostMapping(value = "/sign")
     public ResponseDTO signIn (@RequestBody UserSignInDTO userSignInDTO){
         return userService.signIn(userSignInDTO);
     }

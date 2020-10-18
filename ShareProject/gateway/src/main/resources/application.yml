@@ -25,6 +25,10 @@ spring:
           uri: lb://content-center
           predicates:
             - Path=/notices/**
+        - id: path_route3
+          uri: lb://content-center
+          predicates:
+            - Path=/admin/**
 
 
 

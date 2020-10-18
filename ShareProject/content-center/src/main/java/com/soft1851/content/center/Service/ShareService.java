@@ -39,7 +39,7 @@ public interface ShareService {
      * @param shareRequestDTO
      * @return
      */
-    Share insertShare(ShareRequestDTO shareRequestDTO);
+    int contribute(ShareRequestDTO shareRequestDTO);
 
     /**
      * 编辑投稿

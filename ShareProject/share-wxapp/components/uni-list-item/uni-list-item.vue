@@ -260,8 +260,8 @@
 
 	.uni-list-item__icon-img {
 		height: 60px;
-		width: 60px;
-		border-radius: 10px;
+		width: 70px;
+		border-radius: 5px;
 	}
 
 	.uni-list-item__extra-text {

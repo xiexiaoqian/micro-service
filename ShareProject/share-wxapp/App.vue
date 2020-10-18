@@ -20,4 +20,13 @@ export default {
 	src: url('/static/uni.ttf');
 }
 /* #endif */
+
+button{
+	outline: none;
+	border: none;
+}
+image {
+	width: 100%;
+	height: 100%;
+}
 </style>

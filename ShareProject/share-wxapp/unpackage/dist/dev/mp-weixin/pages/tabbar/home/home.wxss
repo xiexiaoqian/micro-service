@@ -9,6 +9,6 @@
 .notice {
 	margin-top: 10px;
 	font-size: 16px;
-	color: #387fff;
+	color: #4a148c;
 }
 
