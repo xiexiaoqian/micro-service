@@ -8998,7 +8998,7 @@ exports.EXCHANGE_URL = EXCHANGE_URL;var LOGIN_URL = USER_URL + '/login';
 //我的兑换
 exports.LOGIN_URL = LOGIN_URL;var MY_EXCHANGE_URL = SHARE_URL + '/my/exchanges';
 //积分明细
-exports.MY_EXCHANGE_URL = MY_EXCHANGE_URL;var MY_BONUS_LOG_URL = USER_URL + '/my-bonus-log';
+exports.MY_EXCHANGE_URL = MY_EXCHANGE_URL;var MY_BONUS_LOG_URL = USER_URL + '/bonus-logs';
 //我的投稿
 exports.MY_BONUS_LOG_URL = MY_BONUS_LOG_URL;var MY_CONTRIBUTION_URL = SHARE_URL + '/my/contributions';
 //签到

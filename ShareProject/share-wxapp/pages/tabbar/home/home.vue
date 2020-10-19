@@ -101,7 +101,6 @@
 					pageNo: this.pageNo,
 					pageSize: this.pageSize
 				});
-				console.log(res)
 				//请求结束延时隐藏加载动画
 				setTimeout(() => {
 					uni.hideLoading();
@@ -140,16 +139,10 @@
 					return 
 				}
 				if (downloadUrl === null) {
-					console.log('sassa')
 					uni.navigateTo({
-						url: `../../home/exchange?id=${id}`,
-						
-						fail: (res) => {
-							console.log(res)
-						}
+						url: `../../home/exchange?id=${id}`
 					});
 				} else {
-					console.log('sassa!')
 					uni.navigateTo({
 						url: `../../home/share-detail?id=${id}`
 					});

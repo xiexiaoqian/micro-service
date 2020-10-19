@@ -12,7 +12,9 @@
 			></uni-list-item>
 		</uni-list> -->
 		
-		<view v-for="(share, index) in shares" :key="index"><my-card :contribute="true" :share="share" :key="index" @click="gotoDetail(share.id, 'myContribute')"></my-card></view>
+		<view v-for="(share, index) in shares" :key="index">
+			<my-card :contribute="true" :share="share" :key="index" @click="gotoDetail(share.auditStatus, share.id)"></my-card>
+			</view>
 	</view>
 </template>
 
@@ -61,16 +63,10 @@ export default {
 			uni.showLoading({
 				title: '加载中'
 			});
-			// let res = await request(MY_CONTRIBUTION_URL, 'GET', {
-			// 	pageNo: this.pageNo,
-			// 	pageSize: this.pageSize
-			// });
-			console.log(uni.getStorageSync('user').id)
 			
 			let res = await request(MY_CONTRIBUTION_URL, 'POST', {
 				userId: uni.getStorageSync('user').id
 			});
-			console.log(res)
 			
 			setTimeout(() => {
 				uni.hideLoading();
@@ -109,16 +105,47 @@ export default {
 			});
 		},
 		gotoDetail(auditStatus, id) {
-			if (auditStatus === '审核通过') {
+			// switch (auditStatus) {
+			// 	case '尚未审核':
+			// 		uni.showToast({
+			// 			icon: 'none',
+			// 			title: '资源尚未审核',
+			// 			duration: 1500
+			// 		});
+			// 		break;
+			// 	case '审核通过':
+			// 		uni.navigateTo({
+			// 			url: `../../home/share-detail/share-detail?id=${id}`
+			// 		});
+			// 		break;
+			// 	case '审核被拒':
+			// 		uni.showToast({
+			// 			icon: 'none',
+			// 			title: '资源审核未通过，请修改后重新提交',
+			// 			duration: 1500
+			// 		});
+			// 		break;
+			// }
+			console.log(auditStatus)
+			if (auditStatus == '审核通过'){
 				uni.navigateTo({
-					url: `../../home/share-detail/share-detail?id=${id}`
-				});
-			} else {
+							url: `../home/share-detail?id=${id}`,
+							fail: (res) => {
+								console.log(res)
+							}
+						});
+			}else if (auditStatus == '尚未审核'){
 				uni.showToast({
-					icon: 'none',
-					title: '资源尚未通过审核',
-					duration: 1500
-				});
+							icon: 'none',
+							title: '资源尚未审核',
+							duration: 1500
+						});
+			}else{
+				uni.showToast({
+							icon: 'none',
+							title: '资源审核未通过，请修改后重新提交',
+							duration: 1500
+						});
 			}
 		},
 		summary() {

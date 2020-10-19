@@ -71,10 +71,15 @@
     },
     "quickapp" : {},
     "mp-weixin" : {
-        "appid" : "wx5d81447874267b04",
+        "appid" : "wx8d3934fda053a01f",
         "setting" : {
             "urlCheck" : false,
             "es6" : true
+        },
+        "permission" : {
+            "scope.userLocation" : {
+                "desc" : ""
+            }
         }
     },
     "h5" : {

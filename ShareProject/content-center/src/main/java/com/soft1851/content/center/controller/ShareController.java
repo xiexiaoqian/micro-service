@@ -31,7 +31,6 @@ import java.util.List;
 @Api(tags = "分享接口", value = "提供分享相关的Rest API")
 public class ShareController {
     private final ShareService shareService;
-    private final UserCenterFeignClient userCenterFeignClient;
     private final RocketMQTemplate rocketMQTemplate;
     private final JwtOperator jwtOperator;
 

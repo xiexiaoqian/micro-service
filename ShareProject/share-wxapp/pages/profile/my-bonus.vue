@@ -2,11 +2,15 @@
 	<view>
 		<uni-list>
 			<uni-list-item
+			class="title-color"
 				v-for="(bonusLog, index) in bonusLogs"
 				:key="index"
+				:showArrow="false"
 				showExtraIcon="true"
 				:extraIcon="bonusLog.icon"
-				:title="bonusLog.createTime + '--' + bonusLog.title + ' ' + bonusLog.value"
+				:title="bonusLog.value"
+				:note="bonusLog.createTime"
+				:rightText="bonusLog.description"
 			></uni-list-item>
 		</uni-list>
 	</view>
@@ -30,26 +34,29 @@ export default {
 			uni.showLoading({
 				title: '加载中'
 			});
-			//请求积分明细数据，并用js数组的map进行过滤，根据积分事件搭配不同的图标
-			let res = await request(MY_BONUS_LOG_URL, 'GET', {});
+			// 请求积分明细数据，并用js数组的map进行过滤，根据积分事件搭配不同的图标
+			let res = await request(MY_BONUS_LOG_URL, 'POST', {
+				userId: uni.getStorage('user').id
+			});
 			let bonusLogs = res.data;
+			console.log(bonusLogs)
 			this.bonusLogs = bonusLogs.map(function(item) {
 				let res = {};
 				switch (item.event) {
-					case 'BUY':
-						res.icon = { color: '#aaa', size: '20', type: 'download' };
+					case 'EXCHANGE':
+						res.icon = { color: '#303f9f', size: '20', type: 'download' };
 						res.title = '兑换';
 						break;
-					case 'SIGN':
-						res.icon = { color: '#aaa', size: '20', type: 'person' };
+					case 'SIGN_IN':
+						res.icon = { color: '#303f9f', size: '20', type: 'person' };
 						res.title = '签到';
 						break;
 					case 'CONTRIBUTE':
-						res.icon = { color: '#aaa', size: '20', type: 'compose' };
+						res.icon = { color: '#303f9f', size: '20', type: 'compose' };
 						res.title = '投稿';
 						break;
 					case 'FORWARD':
-						res.icon = { color: '#aaa', size: '20', type: 'redo' };
+						res.icon = { color: '#303f9f', size: '20', type: 'redo' };
 						res.title = '转发';
 						break;
 				}
@@ -71,4 +78,6 @@ export default {
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+	
+</style>

@@ -22,7 +22,6 @@ import tk.mybatis.mapper.entity.Example;
 import tk.mybatis.mapper.entity.Example.Criteria;
 import tk.mybatis.mapper.util.StringUtil;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -152,59 +151,6 @@ public class ShareServiceImpl implements ShareService {
         return share;
     }
 
-
-//    @Override
-//    public Share auditById(Integer id, AuditDTO auditDTO) {
-//        Share share = shareMapper.selectByPrimaryKey(id);
-//        BeanUtils.copyProperties(auditDTO, share);
-//        share.setAuditStatus(auditDTO.getAuditStatusEnum().toString());
-//        shareMapper.updateByPrimaryKeySelective(share);
-//        return share;
-//    }
-
-    /**
-     * 审核
-     *
-     * @param id
-     * @param  id,  auditDTO
-     * @return share
-     */
-    @Override
-    public Share auditById(Integer id, AuditDTO auditDTO) {
-        // 1. 查询share是否存在，不存在或者当前的audit_status != NOT_YET，那么抛异常
-        Share share = this.shareMapper.selectByPrimaryKey(id);
-        if (share == null) {
-            throw new IllegalArgumentException("参数非法！该分享不存在！");
-        }
-        if (!Objects.equals(AuditStatusEnum.NOT_YET.name(), share.getAuditStatus())) {
-            throw new IllegalArgumentException("参数非法！该分享已审核通过或审核不通过！");
-        }
-        //2.审核资源，将状态改为PASS或REJECT，更新原因和是否发布显示
-        share.setAuditStatus(auditDTO.getAuditStatusEnum().toString());
-        share.setReason(auditDTO.getReason());
-        share.setShowFlag(auditDTO.getShowFlag());
-        this.shareMapper.updateByPrimaryKey(share);
-
-        //3. 向mid_user插入一条数据，分享的作者通过审核后，默认拥有了下载权限
-        this.midUserShareMapper.insert(
-                MidUserShare.builder()
-                        .userId(share.getUserId())
-                        .shareId(id)
-                        .build()
-        );
-
-        // 4. 如果是PASS，那么发送消息给rocketmq，让用户中心去消费，并为发布人添加积分
-        if (AuditStatusEnum.PASS.equals(auditDTO.getAuditStatusEnum())) {
-            this.rocketMQTemplate.convertAndSend(
-                    "add-bonus",
-                    UserAddBonusMsgDTO.builder()
-                            .userId(share.getUserId())
-                            .bonus(50)
-                            .build());
-        }
-        return share;
-    }
-
     @Override
     public Share exchange(ExchangeDTO exchangeDTO){
         int userId = exchangeDTO.getUserId();
@@ -296,6 +242,54 @@ public class ShareServiceImpl implements ShareService {
             sharesDeal.add(myExchangeInfo);
         });
         return sharesDeal;
+    }
+
+    @Override
+    public List<Share> querySharesNotYet() {
+        Example example = new Example(Share.class);
+        example.setOrderByClause("id DESC");
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("showFlag", false)
+                .andEqualTo("auditStatus", "NOT_YET");
+        return this.shareMapper.selectByExample(example);
+    }
+
+    @Override
+    public Share auditById(Integer id, AuditDTO auditDTO) {
+        // 1. 查询share是否存在，不存在或者当前的audit_status != NOT_YET，那么抛异常
+        Share share = this.shareMapper.selectByPrimaryKey(id);
+        if (share == null) {
+            throw new IllegalArgumentException("参数非法！该分享不存在！");
+        }
+        if (!Objects.equals("NOT_YET", share.getAuditStatus())) {
+            throw new IllegalArgumentException("参数非法！该分享已审核通过或审核不通过！");
+        }
+        //2.审核资源，将状态改为PASS或REJECT，更新原因和是否发布显示
+        share.setAuditStatus(auditDTO.getAuditStatusEnum().toString());
+        share.setReason(auditDTO.getReason());
+        share.setShowFlag(auditDTO.getShowFlag());
+        this.shareMapper.updateByPrimaryKey(share);
+
+        //3. 向mid_user插入一条数据，分享的作者通过审核后，默认拥有了下载权限
+        this.midUserShareMapper.insert(
+                MidUserShare.builder()
+                        .userId(share.getUserId())
+                        .shareId(id)
+                        .build()
+        );
+
+        // 4. 如果是PASS，那么发送消息给rocketmq，让用户中心去消费，并为发布人添加积分
+        if (AuditStatusEnum.PASS.equals(auditDTO.getAuditStatusEnum())) {
+            this.rocketMQTemplate.convertAndSend(
+                    "add-bonus",
+                    UserAddBonusMsgDTO.builder()
+                            .userId(share.getUserId())
+                            .bonus(50)
+                            .build());
+        }
+
+
+        return share;
     }
 
 

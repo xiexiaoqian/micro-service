@@ -150,6 +150,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
 var _request = __webpack_require__(/*! @/utils/request */ 20);
 var _api = __webpack_require__(/*! @/utils/api */ 21);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var _default =
 {
@@ -167,26 +171,29 @@ var _api = __webpack_require__(/*! @/utils/api */ 21);function _interopRequireDe
                 uni.showLoading({
                   title: '加载中' });
 
-                //请求积分明细数据，并用js数组的map进行过滤，根据积分事件搭配不同的图标
-                _context.next = 3;return (0, _request.request)(_api.MY_BONUS_LOG_URL, 'GET', {});case 3:res = _context.sent;
+                // 请求积分明细数据，并用js数组的map进行过滤，根据积分事件搭配不同的图标
+                _context.next = 3;return (0, _request.request)(_api.MY_BONUS_LOG_URL, 'POST', {
+                  userId: uni.getStorage('user').id });case 3:res = _context.sent;
+
                 bonusLogs = res.data;
+                console.log(bonusLogs);
                 _this.bonusLogs = bonusLogs.map(function (item) {
                   var res = {};
                   switch (item.event) {
-                    case 'BUY':
-                      res.icon = { color: '#aaa', size: '20', type: 'download' };
+                    case 'EXCHANGE':
+                      res.icon = { color: '#303f9f', size: '20', type: 'download' };
                       res.title = '兑换';
                       break;
-                    case 'SIGN':
-                      res.icon = { color: '#aaa', size: '20', type: 'person' };
+                    case 'SIGN_IN':
+                      res.icon = { color: '#303f9f', size: '20', type: 'person' };
                       res.title = '签到';
                       break;
                     case 'CONTRIBUTE':
-                      res.icon = { color: '#aaa', size: '20', type: 'compose' };
+                      res.icon = { color: '#303f9f', size: '20', type: 'compose' };
                       res.title = '投稿';
                       break;
                     case 'FORWARD':
-                      res.icon = { color: '#aaa', size: '20', type: 'redo' };
+                      res.icon = { color: '#303f9f', size: '20', type: 'redo' };
                       res.title = '转发';
                       break;}
 
@@ -202,7 +209,7 @@ var _api = __webpack_require__(/*! @/utils/api */ 21);function _interopRequireDe
                     uni.hideLoading();
                   }, 100);
                   return res;
-                });case 6:case "end":return _context.stop();}}}, _callee);}))();
+                });case 7:case "end":return _context.stop();}}}, _callee);}))();
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

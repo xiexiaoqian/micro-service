@@ -93,7 +93,7 @@ public class UserController {
         userService.addBonusById(userAddBonusMsgDTO);
     }
 
-    @GetMapping(value = "/bonus-logs")
+    @PostMapping(value = "/bonus-logs")
     public List<BonusEventLog> bonusEventLogs (@RequestBody UserSignInDTO userSignInDTO){
         return userService.bonusLog(userSignInDTO);
     }

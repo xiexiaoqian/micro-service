@@ -50,15 +50,6 @@ public interface ShareService {
      */
     Share updateShareById(ShareRequestDTO shareRequestDTO, Integer id);
 
-
-    /**
-     * 审核指定内容
-     *
-     * @param id
-     * @return
-     */
-    Share auditById(Integer id, AuditDTO auditDTO);
-
     /**
      * 兑换资源
      *
@@ -79,6 +70,21 @@ public interface ShareService {
      */
     List<Share> myExchange(MyDTO myDTO);
 
+
+    /**
+     * 审核指定内容
+     *
+     * @param id
+     * @return
+     */
+    Share auditById(Integer id, AuditDTO auditDTO);
+
+    /**
+     * 查询待审核状态的shares列表
+     *
+     * @return List<Share>
+     */
+    List<Share> querySharesNotYet();
 
     String getHello();
 }

@@ -88,7 +88,7 @@ public class UserServiceImpl implements UserService {
                     .wxId(openId)
                     .avatarUrl(loginDTO.getAvatarUrl())
                     .wxNickname(loginDTO.getWxNickname())
-                    .roles("user")
+                    .roles("admin")
                     .bonus(100)
                     .createTime(new Date())
                     .updateTime(new Date())
@@ -117,7 +117,7 @@ public class UserServiceImpl implements UserService {
                     .userId(signInDTO.getUserId())
                     .event("SIGN_IN")
                     .value(20)
-                    .description("签到加积分")
+                    .description("签到加分")
                     .createTime(new Date())
                     .build());
             user.setBonus(user.getBonus() + 20);
@@ -161,6 +161,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<BonusEventLog> bonusLog(UserSignInDTO userSignInDTO) {
         Example example = new Example(BonusEventLog.class);
+        example.setOrderByClause("create_time DESC");
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("userId", userSignInDTO.getUserId());
         List<BonusEventLog> bonusEventLogs = this.bonusEventLogMapper.selectByExample(example);

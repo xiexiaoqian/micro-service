@@ -25,7 +25,7 @@
 				</view>
 			</view>
 
-			<uni-list>
+			<uni-list class="list">
 				<uni-list-item title="我的兑换" showArrow="true" is-link @click="toNextPage('exchange')"></uni-list-item>
 				<uni-list-item title="积分明细" showArrow="true" is-link @click="toNextPage('bonus')"></uni-list-item>
 				<uni-list-item title="我的投稿" showArrow="true" is-link @click="toNextPage('contribute')"></uni-list-item>
@@ -245,19 +245,21 @@
 				display: flex;
 
 				.btn-a {
-					width: 45px;
+					width: 35px;
 					height: 15px;
-					padding: 5px;
+					padding: 2px;
 					margin: 2px 15px 2px 5px;
 					font-size: 10px;
 					color: #FFFFFF;
 					border-radius: 2px;
-					background-color: #6190E8;
-					// background: linear-gradient(to bottom, #9796f0, #fbc7d4);
+					// background-color: #6190E8;
+					background: linear-gradient(to bottom, #9796f0, #fbc7d4);
 				}
 			}
 
 
 		}
+		
+		
 	}
 </style>

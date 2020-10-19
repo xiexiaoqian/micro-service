@@ -30,7 +30,7 @@ export const LOGIN_URL = USER_URL + '/login';
 //我的兑换
 export const MY_EXCHANGE_URL = SHARE_URL + '/my/exchanges';
 //积分明细
-export const MY_BONUS_LOG_URL = USER_URL + '/my-bonus-log';
+export const MY_BONUS_LOG_URL = USER_URL + '/bonus-logs';
 //我的投稿
 export const MY_CONTRIBUTION_URL = SHARE_URL + '/my/contributions';
 //签到

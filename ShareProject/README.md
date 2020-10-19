@@ -1,4 +1,6 @@
-# 知识分享小程序
+# 知识分享小程序 
+
+[Github地址](https://github.com/xiexiaoqian/micro-service)
 
 ## 项目
 
@@ -40,62 +42,84 @@
 
 - 我的
   - 微信授权登录
-  - 签到并加积分，写入积分日志
+    - token认证鉴权
+  - 签到并加积分
+    - 同时写入积分日志
+    - 重复签到提醒
   - 我的投稿
-  - 我的资源（含兑换）
-  - 积分明细（实现后端接口，前端联调未通）
+    - 包括所有审核状态：通过、未通过、审核中
+  - 我的资源
+    - 包括已兑换和自己的发布
+  - 积分明细
+    - 根据不同积分事件搭配不同图标和事件标签
+  - 管理员审核（已实现后端接口，前端未实现）
+    - 待审核列表
+    - 审核资源：给出通过与否以及原因
 - 首页
-  - 资源列表，根据用户情况显示下载或兑换
-  - 下拉刷新，触底加载
-  - 资源兑换并扣除积分、复制下载地址
+  - 资源列表
+    - 根据用户是否拥有该资源，显示下载或兑换
+    - 根据资源类型，显示原创与转载标签
+    - 下拉刷新，触底加载
+  - 资源兑换
+    - 判断用户积分是否足够，如果足够，扣除相应积分
+    - 点击复制按钮，将地址复制到系统剪切板
+  - 网络请求中，Loading加载提示
 - 投稿
+
   - 投稿
-- 待实现
-  - 管理员审核
+
+  
 
 ## 页面展示
 
 #### 登录
 
-微信授权登录
-
-<img src="https://uploader.shimo.im/f/qIbqzCCLFKsb0VVe.png!thumbnail" style="zoom: 67%;" /> <img src="https://uploader.shimo.im/f/eDrcNj0KHgELMMoL.png!thumbnail" style="zoom:67%;" />
+- 微信授权登录
 
 
+<img src="https://uploader.shimo.im/f/qIbqzCCLFKsb0VVe.png!thumbnail" style="zoom: 50%;" />  <img src="https://uploader.shimo.im/f/8qLDzxR0mNQSLXhF.png!thumbnail" style="zoom:50%;" /> <img src="https://uploader.shimo.im/f/eDrcNj0KHgELMMoL.png!thumbnail" style="zoom:50%;" />
 
 #### 签到
 
-签到成功，并加相应积分，以及重复签到提示
+- 签到成功，并加相应积分，以及重复签到提示
 
-<img src="https://uploader.shimo.im/f/3nS0uSELRtaA9CB2.png!thumbnail" style="zoom:67%;" /> <img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20201019014252917.png" alt="image-20201019014252917" style="zoom:67%;" />
+
+<img src="https://uploader.shimo.im/f/3nS0uSELRtaA9CB2.png!thumbnail" style="zoom: 50%;" /> <img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20201019014252917.png" alt="image-20201019014252917" style="zoom: 50%;" />
 
 
 
 #### 首页：
 
-资源列表
+- 资源列表
+  - 用户未登录时，资源都显示为兑换；登录后，则根据用户拥有的资源情况显示下载或兑换
 
-用户未登录时，资源都显示为兑换；登录后，则根据兑换情况显示
+  - 根据资源类型匹配原创或转载标签
 
-<img src="https://uploader.shimo.im/f/0kkY0uSYp6mTa6Nn.png!thumbnail" alt="用户未登录时，资源都显示兑换" style="zoom:67%;" /> <img src="https://uploader.shimo.im/f/U9i6mgwHJcfz3DmS.png!thumbnail" style="zoom:67%;" />
+<img src="https://uploader.shimo.im/f/0kkY0uSYp6mTa6Nn.png!thumbnail" alt="用户未登录时，资源都显示兑换" style="zoom: 50%;" /> <img src="https://uploader.shimo.im/f/U9i6mgwHJcfz3DmS.png!thumbnail" style="zoom: 50%;" />
 
 
 
-资源详情
+- 下拉刷新，触底加载
 
-已兑换的直接显示链接，点击复制，可粘贴至相关平台下载查看；未兑换的显示兑换界面
+ <img src="https://uploader.shimo.im/f/QhVnKPyq1k4BVEm6.png!thumbnail" style="zoom: 53%;" /><img src="https://uploader.shimo.im/f/4Zfj6B1kRYDNBuEZ.png!thumbnail" style="zoom:50%;" /> 
 
-<img src="https://uploader.shimo.im/f/zOnyuAeOm3VkxiOX.png!thumbnail" style="zoom:67%;" /> <img src="https://uploader.shimo.im/f/tNcxudmJeGohxweM.png!thumbnail" style="zoom:67%;" />
+- 资源详情
+  - 已兑换的直接显示链接，点击复制，可直接复制到系统剪切板；
+  - 未兑换的显示兑换界面
+
+<img src="https://uploader.shimo.im/f/zOnyuAeOm3VkxiOX.png!thumbnail" style="zoom: 50%;" /> <img src="https://uploader.shimo.im/f/tNcxudmJeGohxweM.png!thumbnail" style="zoom: 50%;" />
 
 
 
 #### 兑换
 
-判断用户积分是否足够后，进行兑换，点击确定，跳转到该资源详情（含链接），同时扣除相应积分，否则提示积分不足
+判断用户积分是否足够后，进行兑换，点击确定，跳转到该资源详情（含链接）
 
-<img src="https://uploader.shimo.im/f/LdLOdJQVmYe0FuJb.png!thumbnail" style="zoom:67%;" />
+同时扣除相应积分，否则提示积分不足
 
+跳回到首页，资源标签从兑换变为下载
 
+<img src="https://uploader.shimo.im/f/LdLOdJQVmYe0FuJb.png!thumbnail" style="zoom: 50%;" /> <img src="https://uploader.shimo.im/f/Q0GUnxOaX0My0H8n.png!thumbnail" style="zoom: 63%;" />
 
 
 
@@ -103,21 +127,46 @@
 
 输入投稿信息。点击继续投稿则清空刚才的信息，可继续填写
 
-<img src="https://uploader.shimo.im/f/mw1QFZ68IKZU9yae.png!thumbnail" style="zoom:67%;" /> <img src="https://uploader.shimo.im/f/pdAF6tylaHcYlDOT.png!thumbnail" style="zoom:67%;" /> <img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20201019020314347.png" style="zoom:67%;" />
+投稿成功后，稿件会显示在我的投稿中，状态为尚未审核，不会直接出现在首页资源列表
+
+<img src="https://uploader.shimo.im/f/mw1QFZ68IKZU9yae.png!thumbnail" style="zoom: 50%;" /> <img src="https://uploader.shimo.im/f/pdAF6tylaHcYlDOT.png!thumbnail" style="zoom: 50%;" /> <img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20201019020314347.png" style="zoom: 50%;" />
 
 
 
 #### 我的兑换
 
-<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20201019022620273.png" style="zoom:67%;" />
+显示用户拥有的资源，包括通过兑换获取以及用户发布
+
+按照获取时间降序，最新的在最上
+
+<img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20201019022620273.png" style="zoom: 50%;" />
 
 #### 我的投稿
 
+显示每篇投稿的审核状态
+
 点击未审核的稿件则会提示：资源尚未通过审核
 
-<img src="https://uploader.shimo.im/f/Po7sNcbsztiAhQMa.png!thumbnail" style="zoom:67%;" /> <img src="https://uploader.shimo.im/f/DaRig30FpQy6xP3g.png!thumbnail" style="zoom:67%;" />
+ <img src="https://uploader.shimo.im/f/JDrJ1eR0A2amYRil.png!thumbnail" style="zoom:50%;" /> <img src="https://uploader.shimo.im/f/WTIECmGY173D8dkB.png!thumbnail" style="zoom:50%;" />
 
-#### 积分明细（待调试）
+#### 积分明细
+
+显示所有积分日志，根据不同事件展示搭配不同图标和事件
+
+<img src="https://uploader.shimo.im/f/aKqSvDO4ZqVTGrjP.png!thumbnail" style="zoom:50%;" />
+
+#### 管理员审核（已实现后端接口，前端未实现）
+
+- 审核列表
+
+<img src="https://uploader.shimo.im/f/q0so31vK788fba5I.png!thumbnail" style="zoom:50%;" />
+
+- 审核资源（RoketMQ问题，调试未通过）
 
 
+
+### 遇到的小问题
+
+- image标签不解析图片
+  - 未解决
 
